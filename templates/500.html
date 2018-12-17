@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% block title %}{% trans "500" %} {% endblock %}
+{% block content %}
+    <div class="row">
+    <div class="col-xs-12" id="error">
+        <h1>ERROR</h1>
+        <p class="lead">{% trans "500 Ineter server error" %}</p>
+        <p>{% trans "The server encountered an internal error or misconfiguration and was unable to complete you request." %}</p>
+        <a class="btn btn-medium btn-success" href="javascript:history.back()">&larr; Back</a>
+    </div>
+    </div>
+{% endblock %}

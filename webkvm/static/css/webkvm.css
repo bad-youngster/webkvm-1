@@ -1,0 +1,35 @@
+body {
+    color: #333;
+    background-color: #fff;
+}
+
+pre {
+    font-size: 12px;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    margin-top: 7px;
+}
+
+label input[type="radio"],
+label input[type="checkbox"] {
+    margin: 0;
+}
+
+.container {
+    max-width: 980px;
+}
+
+.navbar-inverse {
+    text-shadow: 0 -1px 0 rgba(0,0,0, .15);
+    background-color: #563d7c;
+    border-color: #463265;
+    box-shadow: 0 1px 0 rgba(255,255,255, .1);
+}
+
+.navbar-inverse .navba-brand,
+.navbar-inverse .navbar-nav > li > a {
+    color: #f3ecff;
+
+}

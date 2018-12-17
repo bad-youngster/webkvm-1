@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% block title %}{% trans "Dashboard" %}{% endblock %}
+{% block style %}
+    <link href="{% static "css/table-sort.css" %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+
+            {% if form.name.errors %}
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                    {% for error in form.name.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if form.hostname.errors %}
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                    {% for error in form.hostname.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if form.login.errors %}
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                    {% for error in form.hostname.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if form.password.errors %}
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                    {% for error in form.hostname.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+                <div class="page-header">
+                    <a data-toggle="modal" href="#addHost"
+                        class="btn btn-sm btn-success pull-rigth">
+                        {% trans "Add Connection" %}
+                    </a>
+                    <h1>{% trans "Connections" %}</h1>
+                </div>
+            <div class="row" role="main">
+                {% if hosts_info %}
+                    {% for host in hosts_info %}
+                        <div class="col-12 col-4">
+                            <div class="panel
+                                {% ifequal host.status 1  %}
+                                    panel-success
+                                {% else %}
+                                    panel-danger
+                            {% endifequal %}panel-data">
+                            <div class="panel-heading">
+                                {% ifequal host.status 1  %}
+                                    <h3 class="panel-title">
+                                        <a href="{% url 'instances' host.id %}"><strong>{{ host.name }}</strong></a>
+                                        <a data-toggle="modal" href="#editHost{{ host.id }}"
+                                        class="pull-right" title="{% trans "Edit" %}">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </a>
+                                    </h3>
+                                    {% else %}
+                                        <h3 class="panel-title"><strong>{{ host.name }}</strong>
+                                            <a data-toggle="modal" href="#editHost{{ host.id }}"
+                                            class="pull-right" title="{% trans "Edit" %}">
+                                                <span class="glyphicon glyphicon-pencil"></span>
+                                            </a>
+                                        </h3>
+                                {% endifequal %}
+                            </div>
+                                <div class="panel-body">
+                                    <p>
+                                        <form action="" method="post" role="form">
+                                        {% csrf_token %}
+                                    <input type="hidden" name="host_id" value="{{ host.id }}">
+                                    <button type="submit" class="pull-right btn btn-xs btn-danger" name="host_del"
+                                            title="{% trans "Delete" %}"
+                                            onclick="return confirm('{% trans "Are you sure?" %}')">
+
+                                    </button>
+                                </form>
+                                    <p>
+                                    <p><strong>{% trans "Type" %}:</strong>[
+                                        {% ifequal host.type 1 %}TCP{% endifequal %}
+                                        {% ifequal host.type 2 %}SSH{% endifequal %}
+                                        {% ifequal host.type 3 %}TLS{% endifequal %}
+                                        {% ifequal host.type 4 %}SOCKET{% endifequal %}
+                                        ]
+                                    </p>
+                                    <p><strong>{% trans "Host" %}:</strong><a href="ssh://{{ host.hostname }}"
+                                    title="{{ host.status }}">{{ host.hostname }}</a>
+                                    </p>
+                                <div class="modal fade" id="editHost{{ host.id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="editHostLabel" aria-hidden="true">
+
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

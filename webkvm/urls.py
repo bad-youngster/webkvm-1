@@ -6,6 +6,7 @@ from django.contrib.auth import views as dviews
 from hostdetail import views as hviews
 from create import views as cviews
 from storages import views as tviews
+from networks import views as nviews
 
 urlpatterns = ['',
                path(r'^$', sviews.index, name="index"),
@@ -17,5 +18,6 @@ urlpatterns = ['',
                path(r'^create/(\d+)',cviews.create,name='create'),
                path(r'^storages/(\d+)/$',tviews.storages,name='storages'),
                path(r'^storage/(\d+)/[\w\-\.]+)/$',tviews.storage,name='storages'),
-
+               path(r'^networks/(\d+)/$', tviews.storages, name='storages'),
+               path(r'^network/(\d+)/[\w\-\.]+)/$', tviews.storage, name='storages'),
                ]

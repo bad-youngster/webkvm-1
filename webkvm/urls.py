@@ -7,6 +7,7 @@ from hostdetail import views as hviews
 from create import views as cviews
 from storages import views as tviews
 from networks import views as nviews
+from interfaces import views as iviews
 
 urlpatterns = ['',
                path(r'^$', sviews.index, name="index"),
@@ -17,7 +18,9 @@ urlpatterns = ['',
                path(r'^host/(\d+)/$',hviews.overview,name='overview'),
                path(r'^create/(\d+)',cviews.create,name='create'),
                path(r'^storages/(\d+)/$',tviews.storages,name='storages'),
-               path(r'^storage/(\d+)/[\w\-\.]+)/$',tviews.storage,name='storages'),
-               path(r'^networks/(\d+)/$', tviews.storages, name='storages'),
-               path(r'^network/(\d+)/[\w\-\.]+)/$', tviews.storage, name='storages'),
+               path(r'^storage/(\d+)/[\w\-\.]+)/$',tviews.storage,name='storage'),
+               path(r'^networks/(\d+)/$', nviews.networks, name='networks'),
+               path(r'^network/(\d+)/[\w\-\.]+)/$', nviews.network, name='network'),
+               path(r'^interfaces/(\d+)/$', nviews.networks, name='networks'),
+               path(r'^interface/(\d+)/[\w\-\.]+)/$', nviews.network, name='network'),
                ]

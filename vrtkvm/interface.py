@@ -49,7 +49,7 @@ class WvmInterfaces(WvmConnect):
         iface.create()
 
 
-class wWvmInterface(WvmConnect):
+class WvmInterface(WvmConnect):
     def __init__(self, host, login, passwd, conn, iface):
         WvmConnect.__init__(self, host, login, passwd, conn)
         self.iface = self.get_iface(iface)

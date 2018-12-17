@@ -2,7 +2,7 @@ from vrtkvm import util
 from vrtkvm.connection import WvmConnect
 
 
-class WvmStroages(WvmConnect):
+class WvmStorages(WvmConnect):
     def get_storages_info(self):
         get_storages = self.get_storages()
         storages = []

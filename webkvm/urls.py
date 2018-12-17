@@ -8,6 +8,7 @@ from create import views as cviews
 from storages import views as tviews
 from networks import views as nviews
 from interfaces import views as iviews
+from instance import views as inviews
 
 urlpatterns = ['',
                path(r'^$', sviews.index, name="index"),
@@ -21,6 +22,8 @@ urlpatterns = ['',
                path(r'^storage/(\d+)/[\w\-\.]+)/$',tviews.storage,name='storage'),
                path(r'^networks/(\d+)/$', nviews.networks, name='networks'),
                path(r'^network/(\d+)/[\w\-\.]+)/$', nviews.network, name='network'),
-               path(r'^interfaces/(\d+)/$', nviews.networks, name='networks'),
-               path(r'^interface/(\d+)/[\w\-\.]+)/$', nviews.network, name='network'),
+               path(r'^interfaces/(\d+)/$', iviews.interfaces, name='interfaces'),
+               path(r'^interface/(\d+)/[\w\.\:]+)/$', iviews.interface, name='interface'),
+               path(r'^instances/(\d+)/$', iviews.interfaces, name='instances'),
+               path(r'^instance/(\d+)/[\w\-\.\_]+)/$', iviews.interface, name='instance'),
                ]

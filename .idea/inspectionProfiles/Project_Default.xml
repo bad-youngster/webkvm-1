@@ -6,6 +6,7 @@
         <list>
           <option value="vrtkvm.network.WvmNetWork.*" />
           <option value="servers.views.index" />
+          <option value="typing.KeysView.__getitem__" />
         </list>
       </option>
     </inspection_tool>

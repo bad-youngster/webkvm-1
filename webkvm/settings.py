@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 import logging
 import os
+# from servers.models import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,24 +32,6 @@ ADMINS = (
 )
 
 ALLOWED_HOSTS = ['*']
-
-
-# Application definition
-
-INSTALLED_APPS = [
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-
-    'webkvm',
-    'servers',
-    'instance',
-    'create',
-
-
-]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -161,6 +144,7 @@ LOCALE_PATHS = (
     os.path.join(os.path.dirname(__file__),'..','locale'),
 )
 MIDDLEWARE_CLASSES = [
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -233,4 +217,16 @@ QEMU_CONSOLE_TYPES = ['vnc','spice']
 
 QEMU_CONSOLE_DEFAULT_TYPE = 'vnc'
 
+# Application definition
 
+INSTALLED_APPS = [
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    'webkvm',
+    'servers',
+]

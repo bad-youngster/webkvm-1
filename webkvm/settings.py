@@ -110,7 +110,7 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Shanghai'
 
-SITE_ID = 1
+
 
 USE_I18N = True
 
@@ -229,4 +229,9 @@ INSTALLED_APPS = [
 
     'webkvm',
     'servers',
+    'instance',
+    # 'create',
+
 ]
+
+SITE_ID = 1

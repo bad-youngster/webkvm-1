@@ -17,24 +17,24 @@ SSH_PORT = 22
 TCP_PORT = 16509
 
 
-class WvmEventLoop(threading.Thread):
-    def __int__(self, group=None, target=None, name=None, args=(), kwargs=None):
-
-        if kwargs is None:
-            kwargs = {}
-
-        libvirt.virEventRegisterDefaultImpl()
-
-        if name is None:
-            name = 'libvirt event loop'
-        super(WvmEventLoop,self).__init__(group,target,name,args,kwargs)
-
-        self.daemon = True
-
-    def run(self):
-        while True:
-
-            libvirt.virEventRegisterDefaultImpl()
+# class WvmEventLoop(threading.Thread):
+#     def __int__(self, group=None, target=None, name=None, args=(), kwargs=None):
+#
+#         if kwargs is None:
+#             kwargs = {}
+#
+#         # libvirt.virEventRegisterDefaultImpl()
+#
+#         if name is None:
+#             name = 'libvirt event loop'
+#         super(WvmEventLoop,self).__init__(group,target,name,args,kwargs)
+#
+#         self.daemon = True
+#
+#     # def run(self):
+#     #     while True:
+#     #
+#     #         libvirt.virEventRegisterDefaultImpl()
 
 class WvmConnection(object):
 
@@ -71,12 +71,12 @@ class WvmConnection(object):
 
                     try:
                         self.connection.setKeepAlive(connection_manager.keepalive_interval,connection_manager.keepalive_count)
-                        try:
-                            self.connection.registerCloseCallback(self.__connection_close_callback,None)
-
-                        except:
-
-                            pass
+                        # try:
+                        #     self.connection.registerCloseCallback(self.__connection_close_callback,None)
+                        #
+                        # except:
+                        #
+                        #     pass
                     except libvirt.libvirtError as e:
                         self.last_error = str(e)
         finally:
@@ -108,29 +108,29 @@ class WvmConnection(object):
         return 0
 
 
-    def __connection_close_callback(self,connection,reason,opaque=None):
-        self.connection_state_lock.acquire()
-        try:
-            #kvm server shutdown libvirt module freed before the close are called check here if still present
-
-            if libvirt is not None:
-                if reason == libvirt.VIR_CONNECT_CLOSE_REASON_ERROR:
-                    self.last_error = 'connection closed: Misc I/O error'
-                elif (reason == libvirt.VIR_CONNECT_CLOSE_REASON_EOF):
-                     self.last_error = 'connection closed: End-of-file from server'
-
-                elif (reason == libvirt.VIR_CONNECT_CLOSE_REASON_KEEPALIVE):
-                    self.last_error = 'connection closed: Keepalive timer triggered'
-
-                elif (reason == libvirt.VIR_CONNECT_CLOSE_REASON_CLIENT):
-                    self.last_error = 'connection closed: Client requested it'
-                else:
-                    self.last_error = 'connection closed: Unknown error'
-
-                # prevent other threads from using the connection (in the future)
-                self.connection = None
-        finally:
-                self.connection_state_lock.release()
+    # def __connection_close_callback(self,connection,reason,opaque=None):
+    #     self.connection_state_lock.acquire()
+    #     try:
+    #         #kvm server shutdown libvirt module freed before the close are called check here if still present
+    #
+    #         if libvirt is not None:
+    #             if reason == libvirt.VIR_CONNECT_CLOSE_REASON_ERROR:
+    #                 self.last_error = 'connection closed: Misc I/O error'
+    #             elif (reason == libvirt.VIR_CONNECT_CLOSE_REASON_EOF):
+    #                  self.last_error = 'connection closed: End-of-file from server'
+    #
+    #             elif (reason == libvirt.VIR_CONNECT_CLOSE_REASON_KEEPALIVE):
+    #                 self.last_error = 'connection closed: Keepalive timer triggered'
+    #
+    #             elif (reason == libvirt.VIR_CONNECT_CLOSE_REASON_CLIENT):
+    #                 self.last_error = 'connection closed: Client requested it'
+    #             else:
+    #                 self.last_error = 'connection closed: Unknown error'
+    #
+    #             # prevent other threads from using the connection (in the future)
+    #             self.connection = None
+    #     finally:
+    #             self.connection_state_lock.release()
 
     def __connect_tcp(self):
         flags = [libvirt.VIR_CRED_AUTHNAME,libvirt.VIR_CRED_PASSPHRASE]
@@ -233,8 +233,8 @@ class WvmConnectionManager(object):
         self._connections_lock = ReadWriteLock()
         #start event loop to handle keepalive
 
-        self._event_loop = WvmEventLoop()
-        self._event_loop.start()
+        # self._event_loop = WvmEventLoop()
+        # self._event_loop.start()
     def _search_connection(self,host,login,passwd,conn):
 
         # search connection dict for a connection if not exist return none

@@ -25,7 +25,7 @@ def networks(request, host_id):
     compute = Compute.objects.get(id=host_id)
 
     try:
-        conn = WvmNetworks(compute.hostname,
+        conn = WvmNetWorks(compute.hostname,
                            compute.login,
                            compute.password,
                            compute.type)
@@ -69,7 +69,7 @@ def network(request, host_id, pool):
     compute = Compute.objects.get(id=host_id)
 
     try:
-        conn = WvmNetwork(compute.hostname,
+        conn = WvmNetWork(compute.hostname,
                           compute.login,
                           compute.password,
                           compute.type,

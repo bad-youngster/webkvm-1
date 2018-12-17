@@ -35,6 +35,7 @@ urlpatterns = ['',
                re_path('^info/hostusage/', hostusage, name='hostusage'),
                re_path('^info/insts_status/', insts_status, name='insts_status'),
                re_path('^info/inst_status/', inst_status, name='inst_status'),
-               re_path('^info/instusage/', instusage, name='instusage')
+               re_path('^info/instusage/', instusage, name='instusage'),
+               re_path('^aaa',instances),
 
                ]

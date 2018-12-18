@@ -1,6 +1,5 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 
@@ -146,4 +145,4 @@ def create(request, host_id):
 
         conn.close()
 
-    return render_to_response('create.html', locals())
+    return render(request,'create.html', locals())

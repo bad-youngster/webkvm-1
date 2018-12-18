@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 from libvirt import libvirtError
 
@@ -13,14 +13,14 @@ from vrtkvm.hostdetails import WvmHostDetails
 def index(request):
     #index page
 
-    if not request.user.is_authenticated():
+    if not request.user.is_authenticated:
         return HttpResponseRedirect(reversed('login'))
     else:
         return HttpResponseRedirect(reversed('servers_list'))
 
 def servers_list(request):
     #server page
-    if not request.user.is_authenticated():
+    if not request.user.is_authenticated:
         return HttpResponseRedirect(reversed('login'))
 
     def get_hosts_status(hosts):
@@ -117,7 +117,7 @@ def servers_list(request):
 def infrastructure(request):
     # infrastructure page.
 
-    if not request.user.is_authenticated():
+    if not request.user.is_authenticated:
         return HttpResponseRedirect(reversed('login'))
     compute = Compute.objects.filter()
     hosts_vms = {}
@@ -137,5 +137,5 @@ def infrastructure(request):
                 hosts_vms[host.id,host.name,status,0,0,0] = None
         else:
             hosts_vms[host.id,host.name,2,0,0,0] = None
-    return render_to_response('infrastructure.html', locals())
+    return render(request,'infrastructure.html', locals())
 

@@ -1,8 +1,7 @@
 from libvirt import libvirtError
 
-from django.shortcuts import render_to_response
+from django.shortcuts import  render
 from django.http import HttpResponse, HttpResponseRedirect
-from django.template import RequestContext
 from django.urls import reverse
 import json
 import time
@@ -125,4 +124,4 @@ def overview(request, host_id):
     except libvirtError as err:
         errors.append(err)
 
-    return render_to_response('hostdetail.html', locals(), context_instance=RequestContext(request))
+    return render(request,'hostdetail.html', locals())

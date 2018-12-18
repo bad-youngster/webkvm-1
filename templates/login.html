@@ -10,15 +10,14 @@
                     {% trans "Incorrect username or password." %}
                 </div>
             {% endif %}
-            <form class="form-signin" method="post" role="form">
-                {% csrf_token %}
+            <form class="form-signin" method="post" role="form">{% csrf_token %}
                 <h2 class="form-signin">
                     {% trans "Sign In" %}
                 </h2>
                 <input type="text" class="form-control" name="username" placeholder="Login" autocapitalize="none"
                     autocorrect="off" autofocus>
                 <input type="password" class="form-control" name="password" placeholder="Password">
-{#                <input name="next" id="next" type="hidden" value="{% url 'server_list' %}">#}
+                <input name="next" id="next" type="hidden" value="{% url 'servers_list' %}">
                 <button class="btn btn-lg btn-success btn-block" type="submit">{% trans "Sign In" %}</button>
             </form>
         </div>

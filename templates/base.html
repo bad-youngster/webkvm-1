@@ -1,4 +1,5 @@
-{% load i18n %} {% load staticfiles %}
+{% load i18n %}
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,10 +25,10 @@
         <div class="collapse nabar-collapse">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="{% url 'infrastructure' %}"
-                       title="{% trans "Show all host and vm's" %}">
-                        {% trans "Infastructure" %}
-                    </a>
+{#                    <a href="{% url 'infrastructure' %}"#}
+{#                       title="{% trans "Show all host and vm's" %}">#}
+{#                        {% trans "Infastructure" %}#}
+{#                    </a>#}
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

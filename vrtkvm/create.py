@@ -1,3 +1,5 @@
+import string
+
 from vrtkvm import util
 from vrtkvm.connection import WvmConnect
 from webkvm.settings import QEMU_CONSOLE_DEFAULT_TYPE
@@ -180,6 +182,74 @@ class WvmCreate(WvmConnect):
                 </features>
                 <clock offset="utc" />
                 <on_poweroff>destory</on_poweroff>
+                <on_reboot>restart</on_reboot>
+                  <on_crash>restart</on_crash>
+                  <devices>
         """
+        disk_letters = list(string.ascii_lowercase)
+        for image, img_type in images.items():
+            stg = self.get_storage_by_vol_path(image)
+            stg_type = util.get_xml_path(stg.XMLDesc(0), "/pool/@type")
+
+            if stg_type == 'rbd':
+                ceph_user, secret_uuid, ceph_hosts = get_rbd_storage_data()
+                xml += """<disk type='network' device='disk'>
+                                    <driver name='qemu' type='%s' cache='%s'/>
+                                    <auth username='%s'>
+                                        <secret type='ceph' uuid='%s'/>
+                                    </auth>
+                                    <source protocol='rbd' name='%s'>""" % (
+                img_type, cache_mode, ceph_user, secret_uuid, image)
+                if isinstance(ceph_hosts, list):
+                    for host in ceph_hosts:
+                        if host.get('port'):
+                            xml += """
+                                           <host name='%s' port='%s'/>""" % (host.get('name'), host.get('port'))
+                        else:
+                            xml += """
+                                           <host name='%s'/>""" % host.get('name')
+                xml += """
+                                    </source>"""
+            else:
+                xml += """<disk type='file' device='disk'>
+                                    <driver name='qemu' type='%s' cache='%s'/>
+                                    <source file='%s'/>""" % (img_type, cache_mode, image)
+
+            if virtio:
+                xml += """<target dev='vd%s' bus='virtio'/>""" % (disk_letters.pop(0),)
+            else:
+                xml += """<target dev='sd%s' bus='ide'/>""" % (disk_letters.pop(0),)
+            xml += """</disk>"""
+
+        xml += """  <disk type='file' device='cdrom'>
+                              <driver name='qemu' type='raw'/>
+                              <source file=''/>
+                              <target dev='hda' bus='ide'/>
+                              <readonly/>
+                              <address type='drive' controller='0' bus='1' target='0' unit='1'/>
+                            </disk>"""
+        for net in networks.split(','):
+            xml += """<interface type='network'>"""
+            if mac:
+                xml += """<mac address='%s'/>""" % mac
+            xml += """<source network='%s'/>""" % net
+            if virtio:
+                xml += """<model type='virtio'/>"""
+            xml += """</interface>"""
+
+        xml += """  <input type='mouse' bus='ps2'/>
+                            <input type='tablet' bus='usb'/>
+                            <graphics type='%s' port='-1' autoport='yes' listen='0.0.0.0'>
+                              <listen type='address' address='0.0.0.0'/>
+                            </graphics>
+                            <console type='pty'/>
+                            <video>
+                              <model type='cirrus'/>
+                            </video>
+                            <memballoon model='virtio'/>
+                          </devices>
+                        </domain>""" % QEMU_CONSOLE_DEFAULT_TYPE
+        self._defineXML(xml)
+
 
 

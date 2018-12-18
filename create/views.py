@@ -146,4 +146,4 @@ def create(request, host_id):
 
         conn.close()
 
-    return render_to_response('create.html', locals(), context_instance=RequestContext(request))
+    return render_to_response('create.html', locals())

@@ -17,7 +17,7 @@ urlpatterns = [
                url(r'^$', index, name='index'),
                url(r'^login/', TemplateView.as_view(template_name= "login.html"),
                        name='login'),
-               url(r'^logout/', logout, {'template_name': 'logout.html'},
+               url(r'^logout/', TemplateView.as_view(template_name="logout.html"),
                        name='logout'),
                # url('^servers/', servers_list, name='servers_list'),
                # url('^infrastructure/', infrastructure, name='infrastructure'),

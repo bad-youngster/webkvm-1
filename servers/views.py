@@ -112,7 +112,7 @@ def servers_list(request):
                                           password='', )
                 new_socket_host.save()
                 return HttpResponseRedirect(request.get_full_path())
-    return  render_to_response('servers.html', locals(),context_instance=RequestContext(request))
+    return  render_to_response('servers.html', locals())
 
 def infrastructure(request):
     # infrastructure page.
@@ -137,5 +137,5 @@ def infrastructure(request):
                 hosts_vms[host.id,host.name,status,0,0,0] = None
         else:
             hosts_vms[host.id,host.name,2,0,0,0] = None
-    return render_to_response('infrastructure.html',locals(),context_instance=RequestContext(request))
+    return render_to_response('infrastructure.html', locals())
 

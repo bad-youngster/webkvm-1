@@ -230,7 +230,8 @@ INSTALLED_APPS = [
     'webkvm',
     'servers',
     'instance',
-    # 'create',
+    'create',
+
 
 ]
 

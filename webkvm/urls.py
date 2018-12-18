@@ -1,5 +1,4 @@
 from django.contrib.auth import login, logout
-from django.urls import re_path
 from django.conf import settings
 from django.conf.urls import url,include
 
@@ -13,29 +12,28 @@ from storages.views import storages, storage
 from vrtkvm import create, secrets
 
 urlpatterns = ['',
-               re_path('^$', index, name='index'),
-               re_path('^login/', login, {'templae_name': 'login.html'},
+               url('^$', index, name='index'),
+               url('^login/', login, {'templae_name': 'login.html'},
                        name='login'),
-               re_path('^logout/', logout, {'templae_name': 'logout.html'},
+               url('^logout/', logout, {'templae_name': 'logout.html'},
                        name='logout'),
-               re_path('^servers/', servers_list, name='servers_list'),
-               re_path('^infrastructure/', infrastructure, name='infrastructure'),
-               re_path('^host/', overview, name='overview'),
-               re_path('^create/', include(create)),
-               re_path('^storages/', storages, name='storages'),
-               re_path('^storage/', storage, name='storage'),
-               re_path('^networks/', networks, name='networks'),
-               re_path('^network/', network, name='network'),
-               re_path('^interfaces/', interfaces, name='interfaces'),
-               re_path('^interface/', interface, name='interface'),
-               re_path('^instances/', instances, name='instances'),
-               re_path('^instance/', instance, name='instance'),
-               re_path('^secrets/', include(secrets), ),
-               re_path('^console/', console, name='console'),
-               re_path('^info/hostusage/', hostusage, name='hostusage'),
-               re_path('^info/insts_status/', insts_status, name='insts_status'),
-               re_path('^info/inst_status/', inst_status, name='inst_status'),
-               re_path('^info/instusage/', instusage, name='instusage'),
-               re_path('^aaa',instances),
+               url('^servers/', servers_list, name='servers_list'),
+               url('^infrastructure/', infrastructure, name='infrastructure'),
+               url('^host/', overview, name='overview'),
+               url('^create/', include(create),name='creata'),
+               url('^storages/', storages, name='storages'),
+               url('^storage/', storage, name='storage'),
+               url('^networks/', networks, name='networks'),
+               url('^network/', network, name='network'),
+               url('^interfaces/', interfaces, name='interfaces'),
+               url('^interface/', interface, name='interface'),
+               url('^instances/', instances, name='instances'),
+               url('^instance/', instance, name='instance'),
+               url('^secrets/', include(secrets), name='secrets'),
+               url('^console/', console, name='console'),
+               url('^info/hostusage/', hostusage, name='hostusage'),
+               url('^info/insts_status/', insts_status, name='insts_status'),
+               url('^info/inst_status/', inst_status, name='inst_status'),
+               url('^info/instusage/', instusage, name='instusage'),
 
                ]
